@@ -13,4 +13,9 @@
  1. Crearemos las historias
  2. Dividiremos las historias en tareas
  3. Agruparemos las historias en Sprints
- 
+ # Recursos
+ [GitLab](http://gitlab.com)
+ `npm install bootstrap`
+ ```
+ const hola;
+ ```
