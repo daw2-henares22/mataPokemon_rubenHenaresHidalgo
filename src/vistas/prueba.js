@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 
-export const pruebas = {
+export const Prueba = {
   template: '<h1>Pruebas</h1>',
   script: async () => {
     console.log('Vista pruebas cargada')
@@ -12,7 +12,7 @@ export const pruebas = {
 
     // const supabaseKey = process.env.SUPABASE_KEY
     const supabase = createClient(supabaseUrl, supabaseKey)
-    console.log(supabase)
+    console.log('conexión a supabase: ', supabase)
 
     const leerTodosPerfiles = async () => {
       // READ ALL ROWS
@@ -44,8 +44,47 @@ export const pruebas = {
 
       if (error) console.error(error)
       else console.log('Proyectos con detalle: ', data)
+      return data
     }
 
-    leerProyectosDetalle()
+    const registro = async () => {
+      // USER SIGNUP
+      const { data, error } = await supabase.auth.signUp({
+        email: 'henareshidalgoruben@fpllefia.com',
+        password: '123456'
+      })
+    }
+
+    // registro()
+
+    const login = async () => {
+      // USER LOGIN
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: 'henareshidalgoruben@fpllefia.com',
+        password: '123456'
+      })
+    }
+
+    const verUsuarioLogeado = async () => {
+      // GET USER
+      const { data: { user } } = await supabase.auth.getUser()
+      return user
+    }
+
+    const logout = async () => {
+      // USER LOGOUT
+      const { error } = await supabase.auth.signOut()
+    }
+    // 1. Miramos usuario logeado si no hay nadie pues es null
+    console.log('Detalle del usuario logeado ', await verUsuarioLogeado())
+
+    // 2. me logeo
+    await login()
+    // Miramos el usuario logeado
+    console.log('Detalle del usuario logeado ', await verUsuarioLogeado())
+
+    await logout()
+    // 3. miramos usuario para mirar si no está logeado
+    console.log('Detalle del usuario logeado ', await verUsuarioLogeado())
   }
 }
