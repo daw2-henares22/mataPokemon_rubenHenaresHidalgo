@@ -1,6 +1,3 @@
-import 
-
-
 export const perfil = {
   template: `
     <table class="table">
